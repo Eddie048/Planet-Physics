@@ -2,10 +2,8 @@ import java.awt.Container;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
-public class PlanetDraw extends JFrame
-{
-    public PlanetDraw()  // constructor
-    {
+public class PlanetDraw extends JFrame {
+    public PlanetDraw() {
         // Initialize JFrame, title Planet Physics
         super("Planet Physics");
 
@@ -21,8 +19,7 @@ public class PlanetDraw extends JFrame
         canvas.addPlanet(new Planet(100, -1, 0, -1, -50));
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         // Initialize window with size and close functionality
         PlanetDraw window = new PlanetDraw();
         window.setBounds(0, 0, 800, 800);
