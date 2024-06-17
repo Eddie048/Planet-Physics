@@ -6,7 +6,8 @@ public class PlanetDraw extends JFrame
 {
     public PlanetDraw()  // constructor
     {
-        super("Drawing Editor");
+        // Initialize JFrame, title Planet Physics
+        super("Planet Physics");
 
         DrawingPanel canvas = new DrawingPanel();
         ControlPanel controls = new ControlPanel(canvas);
@@ -14,22 +15,18 @@ public class PlanetDraw extends JFrame
         c.add(canvas, BorderLayout.CENTER);
         c.add(controls, BorderLayout.SOUTH);
 
+        // Add 2 planets orbiting a third planet in a stable orbit
         canvas.addPlanet(new Planet(100, 1, 0, 1, 50));
         canvas.addPlanet(new Planet(10000, 0, 0, 0, 0));
         canvas.addPlanet(new Planet(100, -1, 0, -1, -50));
-
-        //stable orbit
-        //canvas.addPlanet(new Planet(10, 35, 0, 300, 100));
-        //canvas.addPlanet(new Planet(10000, 0, 0, 299, 300));
     }
 
     public static void main(String[] args)
     {
+        // Initialize window with size and close functionality
         PlanetDraw window = new PlanetDraw();
         window.setBounds(0, 0, 800, 800);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
-
-
     }
 }
