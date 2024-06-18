@@ -7,7 +7,9 @@ import javax.swing.JComboBox;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * The control panel holds the controls and canvas of the program
+ */
 public class ControlPanel extends JPanel {
     private final DrawingPanel canvas;
     private final JComboBox<String> choosePlanetType;
@@ -18,44 +20,48 @@ public class ControlPanel extends JPanel {
     public ControlPanel(DrawingPanel canvas) {
         this.canvas = canvas;
 
-        JButton updateButton = new JButton("Toggle Motion");
-        updateButton.addActionListener(new ColorButtonListener());
+        // Add button to toggle the motion of the planets
+        JButton toggleButton = new JButton("Toggle Motion");
+        toggleButton.addActionListener(new ToggleButtonListener());
+        add(toggleButton);
 
+        // Add button to create new planets of various types
         String[] planetTypeNames = {"Sun", "Planet", "Satellite Close", "Satellite Far", "Planet Far"};
         choosePlanetType = new JComboBox<>(planetTypeNames);
-
         choosePlanetType.addActionListener(new PlanetButtonListener());
+        add(choosePlanetType);
 
+        // Add button to change the view
         String[] moveType = {"Up", "Down", "Left", "Right", "Zoom Out", "Zoom in"};
         moveView = new JComboBox<>(moveType);
-
-        moveView.addActionListener(new viewButtonListener());
-
-        add(updateButton);
-
+        moveView.addActionListener(new ViewButtonListener());
         add(moveView);
-
-        add(choosePlanetType);
     }
 
-    private class ColorButtonListener implements ActionListener {
+    /**
+     * Listener to listen to the toggle button
+     */
+    private class ToggleButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            if (!isRunning) {
+            // Toggle running status
+            isRunning = !isRunning;
 
-                isRunning = true;
-
+            if (isRunning) {
+                // Planets are now running, start timer
                 timer = new Timer();
                 TimerTask task = new Updater(canvas);
-
                 timer.schedule(task, 500, 10);
 
             } else {
+                // Planets should stop, cancel timer
                 timer.cancel();
-                isRunning = false;
             }
         }
     }
 
+    /**
+     * Listener to listen to create planet button
+     */
     private class PlanetButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             canvas.addPlanet(choosePlanetType.getSelectedIndex() + 1);
@@ -63,23 +69,25 @@ public class ControlPanel extends JPanel {
         }
     }
 
-    private class viewButtonListener implements ActionListener {
+    /**
+     * Listener to listen to change view button
+     */
+    private class ViewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             canvas.moveView(moveView.getSelectedIndex() + 1);
             canvas.requestFocus();
         }
     }
-}
 
-class Updater extends TimerTask {
-    private final DrawingPanel canvas;
-    public Updater(DrawingPanel c){
-        canvas = c;
+    private static class Updater extends TimerTask {
+        private final DrawingPanel canvas;
+        public Updater(DrawingPanel c){
+            canvas = c;
+        }
 
-    }
-
-    public void run() {
-        canvas.updatePlanets();
-        canvas.requestFocus();
+        public void run() {
+            canvas.updatePlanets();
+            canvas.requestFocus();
+        }
     }
 }
