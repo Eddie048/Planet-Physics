@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
 import java.util.ArrayList;
-// TODO: use import java.awt.event.MouseEvent; to create planets on click
 
 /**
  * The canvas that holds planets
@@ -29,17 +28,12 @@ public class PlanetCanvas extends JPanel {
     }
 
     /**
-     * Add a planet of a specified type to the canvas
-     * @param type the type of planet to add
+     * Add a planet at a specified location to the canvas
+     * @param x x coordinate of the planet
+     * @param y y coordinate of the planet
      */
-    public void addPlanet(int type) {
-        switch (type){
-            case 0: planets.add(new Planet(10000, 0, 0, -300, -300)); break;
-            case 1: planets.add(new Planet(100, -2, -2, 200, 100)); break;
-            case 2: planets.add(new Planet(1000, 0.7, 0, 0, 200)); break;
-            case 3: planets.add(new Planet(20, 0.5, 0, 0, 400)); break;
-            case 4: planets.add(new Planet(10, 0, 0.5, -400, 0)); break;
-        }
+    public void addPlanet(int x, int y, int mass) {
+        planets.add(new Planet(mass, 0, 0, (int)((x - 400 - shiftX) * zoom), (int)((y - 400 - shiftY) * zoom)));
         repaint();
     }
 
