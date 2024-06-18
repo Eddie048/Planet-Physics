@@ -11,13 +11,13 @@ import java.util.TimerTask;
  * The control panel holds the controls and canvas of the program
  */
 public class ControlPanel extends JPanel {
-    private final DrawingPanel canvas;
+    private final PlanetCanvas canvas;
     private final JComboBox<String> choosePlanetType;
     private final JComboBox<String> moveView;
     private boolean isRunning = false;
     private Timer timer;
 
-    public ControlPanel(DrawingPanel canvas) {
+    public ControlPanel(PlanetCanvas canvas) {
         this.canvas = canvas;
 
         // Add button to toggle the motion of the planets
@@ -64,7 +64,7 @@ public class ControlPanel extends JPanel {
      */
     private class PlanetButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            canvas.addPlanet(choosePlanetType.getSelectedIndex() + 1);
+            canvas.addPlanet(choosePlanetType.getSelectedIndex());
             canvas.requestFocus();
         }
     }
@@ -74,14 +74,14 @@ public class ControlPanel extends JPanel {
      */
     private class ViewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            canvas.moveView(moveView.getSelectedIndex() + 1);
+            canvas.moveView(moveView.getSelectedIndex());
             canvas.requestFocus();
         }
     }
 
     private static class Updater extends TimerTask {
-        private final DrawingPanel canvas;
-        public Updater(DrawingPanel c){
+        private final PlanetCanvas canvas;
+        public Updater(PlanetCanvas c){
             canvas = c;
         }
 

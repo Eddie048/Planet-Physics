@@ -7,7 +7,7 @@ public class PlanetDraw extends JFrame {
         // Initialize JFrame, title Planet Physics
         super("Planet Physics");
 
-        DrawingPanel canvas = new DrawingPanel();
+        PlanetCanvas canvas = new PlanetCanvas();
         ControlPanel controls = new ControlPanel(canvas);
         Container c = getContentPane();
         c.add(canvas, BorderLayout.CENTER);

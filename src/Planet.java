@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.util.List;
 
 
 public class Planet {
@@ -31,13 +32,16 @@ public class Planet {
         return positionY;
     }
 
-    public void update(Planet[] planets) {
+    public void update(List<Planet> planets) {
 
         // Calculate the force on this planet from all the other planets
         double totalForceX = 0;
         double totalForceY = 0;
 
         for(Planet p : planets) {
+            // Skip if this is itself
+            if (p.equals(this)) continue;
+
             // Calculate the x and y force on this planet from the planet p
             double forceX = Math.abs(p.getMass() / Math.sqrt(Math.pow(positionX - p.getPositionX(), 2) +
                     Math.pow(positionY - p.getPositionY(), 2)) *
