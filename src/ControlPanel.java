@@ -65,7 +65,6 @@ public class ControlPanel extends JPanel {
     private class PlanetButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             canvas.addPlanet(choosePlanetType.getSelectedIndex());
-            canvas.requestFocus();
         }
     }
 
@@ -75,10 +74,12 @@ public class ControlPanel extends JPanel {
     private class ViewButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             canvas.moveView(moveView.getSelectedIndex());
-            canvas.requestFocus();
         }
     }
 
+    /**
+     * TimerTask that runs the update loop
+     */
     private static class Updater extends TimerTask {
         private final PlanetCanvas canvas;
         public Updater(PlanetCanvas c){
@@ -87,7 +88,6 @@ public class ControlPanel extends JPanel {
 
         public void run() {
             canvas.updatePlanets();
-            canvas.requestFocus();
         }
     }
 }
