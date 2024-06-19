@@ -14,9 +14,10 @@ public class PlanetDraw extends JFrame {
         c.add(controls, BorderLayout.SOUTH);
 
         // Add 2 planets orbiting a third planet in a stable orbit
-        canvas.addPlanet(new Planet(100, 1, 0, 0, 50));
-        canvas.addPlanet(new Planet(10000, 0, 0, 0, 0));
-        canvas.addPlanet(new Planet(100, -1, 0, 0, -50));
+        // canvas.addPlanet(new Planet(1, 0.1 * Math.sqrt(2), 0, 0, 50));
+        canvas.addPlanet(new Planet(1000000, 0, 0, 0, 0));
+        canvas.addPlanet(new Planet(200, Math.sqrt(1.0/30), 0, 0, 300));
+        canvas.addPlanet(new Planet(1, Math.sqrt(1.0/30) + Math.sqrt(0.000666), 0, 0, 303));
     }
 
     public static void main(String[] args) {
