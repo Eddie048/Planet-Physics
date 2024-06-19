@@ -9,6 +9,10 @@ public class Planet {
     private double positionX;
     private double positionY;
 
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
     private final double GRAVITY;
 
     public Planet(double m, double vX, double vY, int xVal, int yVal) {
@@ -42,14 +46,16 @@ public class Planet {
             // Skip if this is itself
             if (p.equals(this)) continue;
 
-            // Calculate the x and y force on this planet from the planet p
-            double forceX = Math.abs(p.getMass() / Math.sqrt(Math.pow(positionX - p.getPositionX(), 2) +
-                    Math.pow(positionY - p.getPositionY(), 2)) *
-                    Math.cos(Math.atan((positionY - p.getPositionY())/(positionX - p.getPositionX()))));
+            // Get distances
+            double distX = positionX - p.getPositionX();
+            double distY = positionY - p.getPositionY();
+            double distance = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
 
-            double forceY = Math.abs(p.getMass() / Math.sqrt(Math.pow(positionX - p.getPositionX(), 2) +
-                    Math.pow(positionY - p.getPositionY(), 2)) *
-                    Math.sin(Math.atan((positionY - p.getPositionY())/(positionX - p.getPositionX()))));
+            // Calculate the x and y force on this planet from the planet p
+
+            double forceX = Math.abs(p.getMass() / distance * Math.cos(Math.atan(distY/distX)));
+
+            double forceY = Math.abs(p.getMass() / distance * Math.sin(Math.atan(distY/distX)));
 
             // Flip the sign if needed
             if(positionX > p.getPositionX()) forceX *= -1;
