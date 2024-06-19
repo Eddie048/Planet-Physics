@@ -17,7 +17,7 @@ public class Planet {
         velocityY = vY;
         positionX = xVal;
         positionY = yVal;
-        GRAVITY = 0.0001;
+        GRAVITY = 0.00001;
     }
 
     public double getMass() {
@@ -72,7 +72,7 @@ public class Planet {
     }
 
     public void draw(Graphics g, int shiftX, int shiftY, double zoom) {
-        int radius = (int) Math.pow(mass, 1.0/3) + 2;
+        int radius = (int) Math.pow(mass, 1.0/4) + 2;
 
         g.fillOval((int)(positionX/zoom) + 400 + shiftX - radius/2,
                 (int)(positionY/zoom) + 400 + shiftY - radius/2, radius, radius);
