@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class PlanetCanvas extends JPanel {
 
     private final ArrayList<Planet> planets;
-    private int shiftX, shiftY;
+    private double shiftX, shiftY;
     private double zoom;
 
     private Planet followPlanet;
@@ -91,8 +91,8 @@ public class PlanetCanvas extends JPanel {
 
         if (followPlanet == null) return;
 
-        shiftX = (int) -followPlanet.getPositionX();
-        shiftY = (int) -followPlanet.getPositionY();
+        shiftX = -followPlanet.getPositionX();
+        shiftY = -followPlanet.getPositionY();
     }
 
     public void setFollowPlanet() {

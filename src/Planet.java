@@ -71,11 +71,11 @@ public class Planet {
         positionY += velocityY;
     }
 
-    public void draw(Graphics g, int shiftX, int shiftY, double zoom) {
-        int radius = (int) Math.pow(mass, 1.0/4) + 2;
+    public void draw(Graphics g, double shiftX, double shiftY, double zoom) {
+        int diameter = (int) Math.pow(mass, 1.0/4) + 2;
 
-        g.fillOval((int)((positionX + shiftX)/zoom + 400 - radius/2),
-                (int)((positionY + shiftY)/zoom + 400 - radius/2), radius, radius);
+        g.fillOval((int)((positionX + shiftX)/zoom + 400 - diameter/2),
+                (int)((positionY + shiftY)/zoom + 400 - diameter/2), diameter, diameter);
     }
 
     public String toString() {
