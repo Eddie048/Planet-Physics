@@ -39,11 +39,17 @@ public class ControlPanel extends JPanel {
         add(toggleButton);
         toggleButton.setFocusable(false);
 
-        // Add button to create new planets
+        // Add button to specify new planet mass
         Integer[] planetMassOptions = {1, 10, 100, 1000, 10000};
         JComboBox<Integer> choosePlanetMass = new JComboBox<>(planetMassOptions);
         add(choosePlanetMass);
         choosePlanetMass.setFocusable(false);
+
+        // Add follow random planet button
+        JButton followButton = new JButton("Follow Planet");
+        followButton.addActionListener(e -> canvas.setFollowPlanet());
+        add(followButton);
+        followButton.setFocusable(false);
 
         // Add listener to the canvas so planets can be created
         canvas.addMouseListener(new MouseAdapter() {

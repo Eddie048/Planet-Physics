@@ -14,6 +14,8 @@ public class PlanetCanvas extends JPanel {
     private int shiftX, shiftY;
     private double zoom;
 
+    private Planet followPlanet;
+
     public PlanetCanvas() {
 
         // Set background color of canvas
@@ -86,5 +88,14 @@ public class PlanetCanvas extends JPanel {
             planet.update(planets);
         }
         repaint();
+
+        if (followPlanet == null) return;
+
+        shiftX = (int) -followPlanet.getPositionX();
+        shiftY = (int) -followPlanet.getPositionY();
+    }
+
+    public void setFollowPlanet() {
+        followPlanet = planets.get((int) (Math.random() * planets.size()));
     }
 }
