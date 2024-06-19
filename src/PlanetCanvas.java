@@ -51,7 +51,7 @@ public class PlanetCanvas extends JPanel {
      * @param y y coordinate of the planet
      */
     public void addPlanet(int x, int y, int mass) {
-        planets.add(new Planet(mass, 0, 0, (int)((x - 400 - shiftX) * zoom), (int)((y - 400 - shiftY) * zoom)));
+        planets.add(new Planet(mass, 0, 0, (x - 400) * zoom - shiftX, (y - 400) * zoom - shiftY));
         repaint();
     }
 
