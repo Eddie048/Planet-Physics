@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /**
@@ -25,6 +27,22 @@ public class PlanetCanvas extends JPanel {
         shiftX = 0;
         shiftY = 0;
         zoom = 1;
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                int key = e.getKeyCode();
+
+                if (key == KeyEvent.VK_W || key == KeyEvent.VK_UP) shiftY += 100;
+                else if (key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) shiftX += 100;
+                else if (key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) shiftY -= 100;
+                else if (key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) shiftX -= 100;
+                else if (key == KeyEvent.VK_1) zoom *= 2;
+                else if (key == KeyEvent.VK_2) zoom /= 2;
+
+                repaint();
+            }
+        });
     }
 
     /**
@@ -66,34 +84,6 @@ public class PlanetCanvas extends JPanel {
     public void updatePlanets() {
         for(Planet planet : planets) {
             planet.update(planets);
-        }
-        repaint();
-    }
-
-    /**
-     * Move the viewpoint in a specified way
-     * @param code how to move the viewpoint
-     */
-    public void moveView(int code) {
-        switch (code) {
-            case 0:
-                shiftY += 200;
-                break;
-            case 1:
-                shiftY -= 200;
-                break;
-            case 2:
-                shiftX += 200;
-                break;
-            case 3:
-                shiftX -= 200;
-                break;
-            case 4:
-                zoom *= 2;
-                break;
-            case 5:
-                zoom /= 2;
-                break;
         }
         repaint();
     }

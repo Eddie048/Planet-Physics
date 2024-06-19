@@ -37,17 +37,13 @@ public class ControlPanel extends JPanel {
             }
         });
         add(toggleButton);
+        toggleButton.setFocusable(false);
 
         // Add button to create new planets
         Integer[] planetMassOptions = {1, 10, 100, 1000, 10000};
         JComboBox<Integer> choosePlanetMass = new JComboBox<>(planetMassOptions);
         add(choosePlanetMass);
-
-        // Add button to change the view
-        String[] moveType = {"Up", "Down", "Left", "Right", "Zoom Out", "Zoom in"};
-        JComboBox<String> moveView = new JComboBox<>(moveType);
-        moveView.addActionListener(e -> canvas.moveView(moveView.getSelectedIndex()));
-        add(moveView);
+        choosePlanetMass.setFocusable(false);
 
         // Add listener to the canvas so planets can be created
         canvas.addMouseListener(new MouseAdapter() {

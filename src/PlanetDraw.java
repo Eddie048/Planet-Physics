@@ -12,6 +12,8 @@ public class PlanetDraw extends JFrame {
         Container c = getContentPane();
         c.add(canvas, BorderLayout.CENTER);
         c.add(controls, BorderLayout.SOUTH);
+        canvas.setFocusable(true);
+        canvas.requestFocusInWindow();
 
         // Add 2 planets orbiting a third planet in a stable orbit
         // canvas.addPlanet(new Planet(1, 0.1 * Math.sqrt(2), 0, 0, 50));
