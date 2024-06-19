@@ -9,13 +9,9 @@ public class Planet {
     private double positionX;
     private double positionY;
 
-    public void setVelocityX(double velocityX) {
-        this.velocityX = velocityX;
-    }
-
     private final double GRAVITY;
 
-    public Planet(double m, double vX, double vY, int xVal, int yVal) {
+    public Planet(double m, double vX, double vY, double xVal, double yVal) {
         mass = m;
         velocityX = vX;
         velocityY = vY;

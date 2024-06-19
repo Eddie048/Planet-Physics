@@ -56,7 +56,7 @@ public class ControlPanel extends JPanel {
                 // Planets are now running, start timer
                 timer = new Timer();
                 TimerTask task = new Updater(canvas);
-                timer.schedule(task, 500, 10);
+                timer.schedule(task, 0, 10);
 
             } else {
                 // Planets should stop, cancel timer
