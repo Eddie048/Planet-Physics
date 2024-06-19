@@ -34,9 +34,9 @@ public class Planet {
 
     public void update(List<Planet> planets) {
 
-        // Calculate the force on this planet from all the other planets
-        double totalForceX = 0;
-        double totalForceY = 0;
+        // Calculate the acceleration on this planet from all the other planets
+        double totalAccelerationX = 0;
+        double totalAccelerationY = 0;
 
         for(Planet p : planets) {
             // Skip if this is itself
@@ -45,25 +45,27 @@ public class Planet {
             // Get distances
             double distX = positionX - p.getPositionX();
             double distY = positionY - p.getPositionY();
-            double distance = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
+            double distanceSquared = Math.pow(distX, 2) + Math.pow(distY, 2);
 
-            // Calculate the x and y force on this planet from the planet p
+            // Calculate the total acceleration using the equation a=Gm/r^2
+            double acceleration = GRAVITY * p.getMass() / distanceSquared;
 
-            double forceX = Math.abs(p.getMass() / distance * Math.cos(Math.atan(distY/distX)));
-
-            double forceY = Math.abs(p.getMass() / distance * Math.sin(Math.atan(distY/distX)));
+            // Calculate the x and y acceleration using trigonometry
+            double accelerationX = acceleration * Math.abs(Math.cos(Math.atan(distY/distX)));
+            double accelerationY = acceleration * Math.abs(Math.sin(Math.atan(distY/distX)));
 
             // Flip the sign if needed
-            if(positionX > p.getPositionX()) forceX *= -1;
-            if(positionY > p.getPositionY()) forceY *= -1;
+            if(positionX > p.getPositionX()) accelerationX *= -1;
+            if(positionY > p.getPositionY()) accelerationY *= -1;
 
-            // Update force value
-            totalForceX += forceX;
-            totalForceY += forceY;
+            // Update total acceleration accumulators
+            totalAccelerationX += accelerationX;
+            totalAccelerationY += accelerationY;
         }
 
-        velocityX += GRAVITY*totalForceX;
-        velocityY += GRAVITY*totalForceY;
+        // Update velocity and position variables
+        velocityX += totalAccelerationX;
+        velocityY += totalAccelerationY;
 
         positionX += velocityX;
         positionY += velocityY;
