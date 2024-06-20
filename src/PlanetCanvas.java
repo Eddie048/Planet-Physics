@@ -56,7 +56,7 @@ public class PlanetCanvas extends JPanel {
      * @param y y coordinate of the planet
      */
     public void addPlanet(int x, int y, int mass) {
-        planets.add(new Planet(mass, 0, 0, (x - 400) * zoom - shiftX, (y - 400) * zoom - shiftY));
+        planets.add(new Planet(mass, 0, 0, (x - getWidth()/2.0) * zoom - shiftX, (y - getHeight()/2.0) * zoom - shiftY));
         repaint();
     }
 
@@ -80,8 +80,8 @@ public class PlanetCanvas extends JPanel {
         for (Planet planet : planets)
         {
             int radius = (int) planet.getRadius();
-            int xCoordinate = (int)((planet.getPositionX() + shiftX)/zoom + 400 - radius);
-            int yCoordinate = (int)((planet.getPositionY() + shiftY)/zoom + 400 - radius);
+            int xCoordinate = (int)((planet.getPositionX() + shiftX)/zoom + getWidth()/2.0 - radius);
+            int yCoordinate = (int)((planet.getPositionY() + shiftY)/zoom + getHeight()/2.0 - radius);
 
             g.fillOval(xCoordinate, yCoordinate, radius*2, radius*2);
         }
