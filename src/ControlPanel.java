@@ -57,6 +57,12 @@ public class ControlPanel extends JPanel {
         add(stopFollowing);
         stopFollowing.setFocusable(false);
 
+        // Add view mode toggle button
+        JButton viewToggle = new JButton("Toggle View Mode");
+        viewToggle.addActionListener(e -> canvas.toggleViewMode());
+        add(viewToggle);
+        viewToggle.setFocusable(false);
+
         // Add listener to the canvas so planets can be created
         canvas.addMouseListener(new MouseAdapter() {
             @Override

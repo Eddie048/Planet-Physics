@@ -35,17 +35,17 @@ public class PlanetDraw extends JFrame {
 
         // Earth Sun Moon representation, ratio of revolution time, ratio of orbit distance, mass ratios are all correct
         // Planet size is Not correct
-        canvas.addPlanet(new Planet(27068780, 0, 0, 0, 0)); // The Sun
-        canvas.addPlanet(new Planet(81, Math.sqrt(270.0878/3902), 0, 0, 3902)); // Earth
-        canvas.addPlanet(new Planet(1, Math.sqrt(270.0878/3902) + Math.sqrt(0.00081/10), 0, 0, 3912)); // The Moon
-        canvas.addPlanet(new Planet(4.5, Math.sqrt(270.0878/1506), 0, 0, 1506)); // Mercury
-        canvas.addPlanet(new Planet(66.3, Math.sqrt(270.0878/2810), 0, 0, 2810)); // Venus
-        canvas.addPlanet(new Planet(8.7, Math.sqrt(270.0878/5931), 0, 0, 5931)); // Mars
-        canvas.addPlanet(new Planet(25837, Math.sqrt(270.0878/20265), 0, 0, 20265)); // Jupiter
-        canvas.addPlanet(new Planet(7739, Math.sqrt(270.0878/37122), 0, 0, 37122)); // Saturn
-        canvas.addPlanet(new Planet(1179, Math.sqrt(270.0878/74687), 0, 0, 74687)); // Uranus
-        canvas.addPlanet(new Planet(1390, Math.sqrt(270.0878/116987), 0, 0, 116987)); // Neptune
-        canvas.addPlanet(new Planet(0.2, Math.sqrt(270.0878/153824), 0, 0, 153824)); // Pluto
+        canvas.addPlanet(new Planet(27068780, 0, 0, 0, 0, 18)); // The Sun
+        canvas.addPlanet(new Planet(81, Math.sqrt(270.0878/3902), 0, 0, 3902, 0.16)); // Earth
+        canvas.addPlanet(new Planet(1, Math.sqrt(270.0878/3902) + Math.sqrt(0.00081/10), 0, 0, 3912, 0.045)); // The Moon
+        canvas.addPlanet(new Planet(4.5, Math.sqrt(270.0878/1506), 0, 0, 1506, 0.063)); // Mercury
+        canvas.addPlanet(new Planet(66.3, Math.sqrt(270.0878/2810), 0, 0, 2810, 0.157)); // Venus
+        canvas.addPlanet(new Planet(8.7, Math.sqrt(270.0878/5931), 0, 0, 5931, 0.088)); // Mars
+        canvas.addPlanet(new Planet(25837, Math.sqrt(270.0878/20265), 0, 0, 20265, 1.82)); // Jupiter
+        canvas.addPlanet(new Planet(7739, Math.sqrt(270.0878/37122), 0, 0, 37122, 1.51)); // Saturn
+        canvas.addPlanet(new Planet(1179, Math.sqrt(270.0878/74687), 0, 0, 74687, 0.66)); // Uranus
+        canvas.addPlanet(new Planet(1390, Math.sqrt(270.0878/116987), 0, 0, 116987, 0.64)); // Neptune
+        canvas.addPlanet(new Planet(0.2, Math.sqrt(270.0878/153824), 0, 0, 153824, 0.031)); // Pluto
     }
 
     public static void main(String[] args) {
