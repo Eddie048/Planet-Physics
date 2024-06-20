@@ -56,8 +56,9 @@ public class Planet {
             double acceleration = GRAVITY * p.getMass() / distanceSquared;
 
             // Calculate the x and y acceleration using trigonometry
-            double accelerationX = acceleration * Math.abs(Math.cos(Math.atan(distY/distX)));
-            double accelerationY = acceleration * Math.abs(Math.sin(Math.atan(distY/distX)));
+            double angle = Math.atan(distY/distX);
+            double accelerationX = acceleration * Math.abs(Math.cos(angle));
+            double accelerationY = acceleration * Math.abs(Math.sin(angle));
 
             // Flip the sign if needed
             if(positionX > p.getPositionX()) accelerationX *= -1;
