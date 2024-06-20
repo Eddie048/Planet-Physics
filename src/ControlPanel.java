@@ -51,6 +51,12 @@ public class ControlPanel extends JPanel {
         add(followButton);
         followButton.setFocusable(false);
 
+        // Add stop following planet button
+        JButton stopFollowing = new JButton("Stop following");
+        stopFollowing.addActionListener(e -> canvas.stopFollowing());
+        add(stopFollowing);
+        stopFollowing.setFocusable(false);
+
         // Add listener to the canvas so planets can be created
         canvas.addMouseListener(new MouseAdapter() {
             @Override

@@ -14,7 +14,7 @@ public class PlanetCanvas extends JPanel {
     private double shiftX, shiftY;
     private double zoom;
 
-    private Planet followPlanet;
+    private int followPlanet;
 
     public PlanetCanvas() {
 
@@ -29,6 +29,9 @@ public class PlanetCanvas extends JPanel {
         shiftX = 0;
         shiftY = 0;
         zoom = 1;
+
+        // Initialize follow planet to -1
+        followPlanet = -1;
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -89,13 +92,24 @@ public class PlanetCanvas extends JPanel {
         }
         repaint();
 
-        if (followPlanet == null) return;
+        if (followPlanet == -1) return;
 
-        shiftX = -followPlanet.getPositionX();
-        shiftY = -followPlanet.getPositionY();
+        shiftX = -planets.get(followPlanet).getPositionX();
+        shiftY = -planets.get(followPlanet).getPositionY();
     }
 
+    /**
+     * Change planet to follow, loop through list of planets
+     */
     public void setFollowPlanet() {
-        followPlanet = planets.get((int) (Math.random() * planets.size()));
+        followPlanet ++;
+        if (followPlanet >= planets.size()) followPlanet = 0;
+    }
+
+    /**
+     * Change planet to follow to -1, allow free movement
+     */
+    public void stopFollowing() {
+        followPlanet = -1;
     }
 }
