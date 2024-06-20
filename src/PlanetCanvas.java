@@ -79,7 +79,11 @@ public class PlanetCanvas extends JPanel {
 
         for (Planet planet : planets)
         {
-            planet.draw(g, shiftX, shiftY, zoom);
+            int radius = (int) planet.getRadius();
+            int xCoordinate = (int)((planet.getPositionX() + shiftX)/zoom + 400 - radius);
+            int yCoordinate = (int)((planet.getPositionY() + shiftY)/zoom + 400 - radius);
+
+            g.fillOval(xCoordinate, yCoordinate, radius*2, radius*2);
         }
     }
 

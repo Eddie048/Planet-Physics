@@ -1,9 +1,9 @@
-import java.awt.Graphics;
 import java.util.List;
 
 
 public class Planet {
     private final double mass;
+    private final double radius;
     private double velocityX;
     private double velocityY;
     private double positionX;
@@ -13,6 +13,7 @@ public class Planet {
 
     public Planet(double m, double vX, double vY, double xVal, double yVal) {
         mass = m;
+        radius = (Math.pow(mass, 1.0/4) + 2) / 2;
         velocityX = vX;
         velocityY = vY;
         positionX = xVal;
@@ -22,6 +23,10 @@ public class Planet {
 
     public double getMass() {
         return mass;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 
     public double getPositionX() {
@@ -69,13 +74,6 @@ public class Planet {
 
         positionX += velocityX;
         positionY += velocityY;
-    }
-
-    public void draw(Graphics g, double shiftX, double shiftY, double zoom) {
-        int diameter = (int) Math.pow(mass, 1.0/4) + 2;
-
-        g.fillOval((int)((positionX + shiftX)/zoom + 400 - diameter/2),
-                (int)((positionY + shiftY)/zoom + 400 - diameter/2), diameter, diameter);
     }
 
     public String toString() {
