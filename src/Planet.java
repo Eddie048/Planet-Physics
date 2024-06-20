@@ -11,14 +11,18 @@ public class Planet {
 
     private final double GRAVITY;
 
-    public Planet(double m, double vX, double vY, double xVal, double yVal) {
-        mass = m;
-        radius = (Math.pow(mass, 1.0/4) + 2) / 2;
-        velocityX = vX;
-        velocityY = vY;
-        positionX = xVal;
-        positionY = yVal;
+    public Planet(double mass, double velocityX, double velocityY, double positionX, double positionY, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+        this.velocityX = velocityX;
+        this.velocityY = velocityY;
+        this.positionX = positionX;
+        this.positionY = positionY;
         GRAVITY = 0.00001;
+    }
+
+    public Planet(double mass, double velocityX, double velocityY, double positionX, double positionY) {
+        this(mass, velocityX, velocityY, positionX, positionY, (Math.pow(mass, 1.0/4) + 2) / 2);
     }
 
     public double getMass() {
