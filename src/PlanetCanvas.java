@@ -166,18 +166,8 @@ public class PlanetCanvas extends JPanel {
                 if (xRelative < 0) viewAngle += Math.PI;
                 viewAngle = standardizeAngle(viewAngle);
 
-                // Skip planet if not within fovTop and fovBottom
-                if (fovTop > fovBottom) {
-                    if (viewAngle < fovBottom || viewAngle > fovTop) continue;
-                } else if (viewAngle < fovBottom && viewAngle > fovTop) continue;
-                // TODO: Add planet radius into equation
-
                 // Get position relative to bottom of screen, check for case that bottom is above top
                 double angleToPixelConversion = getHeight() / (fovTop > fovBottom ?  fovTop - fovBottom : fovTop - fovBottom + 2*Math.PI);
-
-                //Draw planet in correct spot, correcting for break in domain
-                double relativeAngle = viewAngle > fovBottom ? viewAngle - fovBottom : viewAngle - fovBottom + 2*Math.PI;
-                double yDraw = relativeAngle * angleToPixelConversion;
 
                 // Calculate the percent of the screen the planet takes up
                 double radius = planet.getRadius();
@@ -185,8 +175,28 @@ public class PlanetCanvas extends JPanel {
                 double angle = Math.atan(radius/distance);
                 double newRadius = angle * angleToPixelConversion;
 
+                // Skip planet if not within fovTop and fovBottom for efficiency
+                if (fovTop > fovBottom) {
+                    if (standardizeAngle(viewAngle + angle) < fovBottom || standardizeAngle(viewAngle - angle) > fovTop) continue;
+                } else if (standardizeAngle(viewAngle + angle) < fovBottom && standardizeAngle(viewAngle - angle) > fovTop) continue;
+
+                //Draw planet in correct spot, correcting for break in domain
+                double relativeAngle = viewAngle > fovBottom ? viewAngle - fovBottom : viewAngle - fovBottom + 2*Math.PI;
+                double yDraw = relativeAngle * angleToPixelConversion;
+
+
                 // Draw planet at calculated position
-                g.fillOval((int) (getWidth()/2 - newRadius), (int) (yDraw - newRadius), (int) (newRadius*2), (int) (newRadius*2));
+                g.fillOval((int) (getWidth()/2 - newRadius),
+                        (int) (yDraw - newRadius),
+                        (int) (newRadius*2),
+                        (int) (newRadius*2));
+
+                // Check for planet diameter crossing 0, if so draw again below 0
+                if (relativeAngle + angle > 2*Math.PI)
+                    g.fillOval((int) (getWidth()/2 - newRadius),
+                            (int) (yDraw - newRadius - angleToPixelConversion * 2*Math.PI),
+                            (int) (newRadius*2),
+                            (int) (newRadius*2));
 
                 // Draw line for better visibility
                 g.setColor(Color.RED);
@@ -206,7 +216,7 @@ public class PlanetCanvas extends JPanel {
         if (followPlanet != -1) {
             shiftX = -planets.get(followPlanet).getPositionX();
             shiftY = -planets.get(followPlanet).getPositionY();
-        };
+        }
         repaint();
     }
 
