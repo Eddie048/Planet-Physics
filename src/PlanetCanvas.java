@@ -91,11 +91,15 @@ public class PlanetCanvas extends JPanel {
         if (isNormalMode) {
             for (Planet planet : planets)
             {
-                int radius = (int) planet.getRadius();
+                int radius = (int) (planet.getRadius()/zoom);
                 int xCoordinate = (int)((planet.getPositionX() + shiftX)/zoom + getWidth()/2.0 - radius);
                 int yCoordinate = (int)((planet.getPositionY() + shiftY)/zoom + getHeight()/2.0 - radius);
 
                 g.fillOval(xCoordinate, yCoordinate, radius*2, radius*2);
+
+                g.setColor(Color.RED);
+                g.fillRect(xCoordinate - 25, yCoordinate + 1 + radius, 20, 2);
+                g.setColor(Color.WHITE);
             }
         } else {
             double viewX, viewY;
@@ -135,6 +139,10 @@ public class PlanetCanvas extends JPanel {
 
                 // Draw planet at calculated position
                 g.fillOval((int) (getWidth()/2 - newRadius), (int) (yDraw - newRadius), (int) (newRadius*2), (int) (newRadius*2));
+
+                g.setColor(Color.RED);
+                g.fillRect(getWidth()/2 - 40, (int) yDraw - 1, 20, 2);
+                g.setColor(Color.WHITE);
             }
         }
     }
