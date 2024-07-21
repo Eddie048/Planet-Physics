@@ -1,25 +1,100 @@
-import java.awt.Container;
 import java.awt.BorderLayout;
-import javax.swing.JFrame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+import javax.swing.*;
 
 public class PlanetDraw {
+
+    private static boolean isRunning;
+    private static Timer timer;
+
     public static void main(String[] args) {
-        // Initialize window with size and close functionality
+
+        // Initialize window
         JFrame window = new JFrame("Planet Physics");
-
-        PlanetCanvas canvas = new PlanetCanvas();
-        ControlPanel controls = new ControlPanel(canvas);
-        Container c = window.getContentPane();
-        c.add(canvas, BorderLayout.CENTER);
-        c.add(controls, BorderLayout.SOUTH);
-        canvas.setFocusable(true);
-        canvas.requestFocusInWindow();
-
-        setupSolarSystem(canvas);
-
         window.setBounds(0, 0, 800, 800);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Create planet canvas to display planets
+        PlanetCanvas canvas = new PlanetCanvas();
+        canvas.setFocusable(true);
+        canvas.requestFocusInWindow();
+        setupSolarSystem(canvas);
+        window.add(canvas, BorderLayout.CENTER);
+
+        // Create controls object
+        JPanel controls = getControlPanel(canvas);
+        window.add(controls, BorderLayout.SOUTH);
+
+        // Render window
         window.setVisible(true);
+
+        // Start planet motion
+        isRunning = true;
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                canvas.updatePlanets();
+            }
+        }, 0, 2);
+    }
+
+    public static JPanel getControlPanel(PlanetCanvas canvas) {
+
+        // Initialize controlPanel
+        JPanel controlPanel = new JPanel();
+
+        // Add button to toggle the motion of the planets
+        JButton toggleButton = new JButton("Toggle Motion");
+        toggleButton.addActionListener(e -> {
+            isRunning = !isRunning;
+
+            if (isRunning) {
+                // Planets are now running, start timer
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        canvas.updatePlanets();
+                    }
+                }, 0, 2);
+
+            } else {
+                // Planets should stop, cancel timer
+                timer.cancel();
+            }
+        });
+        controlPanel.add(toggleButton);
+        toggleButton.setFocusable(false);
+
+        // Add button to specify new planet mass
+        Integer[] planetMassOptions = {1, 10, 100, 1000, 10000};
+        JComboBox<Integer> choosePlanetMass = new JComboBox<>(planetMassOptions);
+        controlPanel.add(choosePlanetMass);
+        choosePlanetMass.setFocusable(false);
+
+        // Add follow random planet button
+        JButton followButton = new JButton("Follow Planet");
+        followButton.addActionListener(e -> canvas.setFollowPlanet());
+        controlPanel.add(followButton);
+        followButton.setFocusable(false);
+
+        // Add stop following planet button
+        JButton stopFollowing = new JButton("Stop following");
+        stopFollowing.addActionListener(e -> canvas.stopFollowing());
+        controlPanel.add(stopFollowing);
+        stopFollowing.setFocusable(false);
+
+        // Add view mode toggle button
+        JButton viewToggle = new JButton("Toggle View Mode");
+        viewToggle.addActionListener(e -> canvas.toggleViewMode());
+        controlPanel.add(viewToggle);
+        viewToggle.setFocusable(false);
+
+        return controlPanel;
     }
 
     public static void setupSolarSystem(PlanetCanvas canvas) {
