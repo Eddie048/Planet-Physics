@@ -101,16 +101,6 @@ public class PlanetCanvas extends JPanel {
     }
 
     /**
-     * Add a planet at a specified location to the canvas
-     * @param x x coordinate of the planet
-     * @param y y coordinate of the planet
-     */
-    public void addPlanet(int x, int y, int mass) {
-        planets.add(new Planet(mass, 0, 0, (x - getWidth()/2.0) * zoom - shiftX, (y - getHeight()/2.0) * zoom - shiftY));
-        repaint();
-    }
-
-    /**
      * Add a custom planet to the canvas
      * @param planet the planet to add
      */

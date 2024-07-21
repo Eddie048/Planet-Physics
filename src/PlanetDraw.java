@@ -1,6 +1,4 @@
 import java.awt.BorderLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.*;
@@ -10,6 +8,8 @@ public class PlanetDraw {
     private static boolean isRunning;
     private static Timer timer;
 
+    private static PlanetCanvas planetCanvas;
+
     public static void main(String[] args) {
 
         // Initialize window
@@ -18,31 +18,31 @@ public class PlanetDraw {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create planet canvas to display planets
-        PlanetCanvas canvas = new PlanetCanvas();
-        canvas.setFocusable(true);
-        canvas.requestFocusInWindow();
-        setupSolarSystem(canvas);
-        window.add(canvas, BorderLayout.CENTER);
+        planetCanvas = new PlanetCanvas();
+        planetCanvas.setFocusable(true);
+        planetCanvas.requestFocusInWindow();
+        window.add(planetCanvas, BorderLayout.CENTER);
 
         // Create controls object
-        JPanel controls = getControlPanel(canvas);
+        JPanel controls = getControlPanel();
         window.add(controls, BorderLayout.SOUTH);
 
         // Render window
         window.setVisible(true);
 
         // Start planet motion
+        setupSolarSystem();
         isRunning = true;
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                canvas.updatePlanets();
+                planetCanvas.updatePlanets();
             }
         }, 0, 2);
     }
 
-    public static JPanel getControlPanel(PlanetCanvas canvas) {
+    public static JPanel getControlPanel() {
 
         // Initialize controlPanel
         JPanel controlPanel = new JPanel();
@@ -58,7 +58,7 @@ public class PlanetDraw {
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                        canvas.updatePlanets();
+                        planetCanvas.updatePlanets();
                     }
                 }, 0, 2);
 
@@ -78,38 +78,38 @@ public class PlanetDraw {
 
         // Add follow random planet button
         JButton followButton = new JButton("Follow Planet");
-        followButton.addActionListener(e -> canvas.setFollowPlanet());
+        followButton.addActionListener(e -> planetCanvas.setFollowPlanet());
         controlPanel.add(followButton);
         followButton.setFocusable(false);
 
         // Add stop following planet button
         JButton stopFollowing = new JButton("Stop following");
-        stopFollowing.addActionListener(e -> canvas.stopFollowing());
+        stopFollowing.addActionListener(e -> planetCanvas.stopFollowing());
         controlPanel.add(stopFollowing);
         stopFollowing.setFocusable(false);
 
         // Add view mode toggle button
         JButton viewToggle = new JButton("Toggle View Mode");
-        viewToggle.addActionListener(e -> canvas.toggleViewMode());
+        viewToggle.addActionListener(e -> planetCanvas.toggleViewMode());
         controlPanel.add(viewToggle);
         viewToggle.setFocusable(false);
 
         return controlPanel;
     }
 
-    public static void setupSolarSystem(PlanetCanvas canvas) {
+    public static void setupSolarSystem() {
         // Earth Sun Moon representation, ratio of revolution time, ratio of orbit distance, mass ratios are all correct
-        canvas.addPlanet(new Planet(27068780, 0, 0, 0, 0, 18)); // The Sun
-        canvas.addPlanet(new Planet(81, Math.sqrt(270.0878/3902), 0, 0, 3902, 0.16)); // Earth
-        canvas.addPlanet(new Planet(1, Math.sqrt(270.0878/3902) + Math.sqrt(0.00081/10), 0, 0, 3912, 0.045)); // The Moon
-        canvas.addPlanet(new Planet(4.5, Math.sqrt(270.0878/1506), 0, 0, 1506, 0.063)); // Mercury
-        canvas.addPlanet(new Planet(66.3, Math.sqrt(270.0878/2810), 0, 0, 2810, 0.157)); // Venus
-        canvas.addPlanet(new Planet(8.7, Math.sqrt(270.0878/5931), 0, 0, 5931, 0.088)); // Mars
-        canvas.addPlanet(new Planet(25837, Math.sqrt(270.0878/20265), 0, 0, 20265, 1.82)); // Jupiter
-        canvas.addPlanet(new Planet(7739, Math.sqrt(270.0878/37122), 0, 0, 37122, 1.51)); // Saturn
-        canvas.addPlanet(new Planet(1179, Math.sqrt(270.0878/74687), 0, 0, 74687, 0.66)); // Uranus
-        canvas.addPlanet(new Planet(1390, Math.sqrt(270.0878/116987), 0, 0, 116987, 0.64)); // Neptune
-        canvas.addPlanet(new Planet(0.2, Math.sqrt(270.0878/153824), 0, 0, 153824, 0.031)); // Pluto
+        planetCanvas.addPlanet(new Planet(27068780, 0, 0, 0, 0, 18)); // The Sun
+        planetCanvas.addPlanet(new Planet(81, Math.sqrt(270.0878/3902), 0, 0, 3902, 0.16)); // Earth
+        planetCanvas.addPlanet(new Planet(1, Math.sqrt(270.0878/3902) + Math.sqrt(0.00081/10), 0, 0, 3912, 0.045)); // The Moon
+        planetCanvas.addPlanet(new Planet(4.5, Math.sqrt(270.0878/1506), 0, 0, 1506, 0.063)); // Mercury
+        planetCanvas.addPlanet(new Planet(66.3, Math.sqrt(270.0878/2810), 0, 0, 2810, 0.157)); // Venus
+        planetCanvas.addPlanet(new Planet(8.7, Math.sqrt(270.0878/5931), 0, 0, 5931, 0.088)); // Mars
+        planetCanvas.addPlanet(new Planet(25837, Math.sqrt(270.0878/20265), 0, 0, 20265, 1.82)); // Jupiter
+        planetCanvas.addPlanet(new Planet(7739, Math.sqrt(270.0878/37122), 0, 0, 37122, 1.51)); // Saturn
+        planetCanvas.addPlanet(new Planet(1179, Math.sqrt(270.0878/74687), 0, 0, 74687, 0.66)); // Uranus
+        planetCanvas.addPlanet(new Planet(1390, Math.sqrt(270.0878/116987), 0, 0, 116987, 0.64)); // Neptune
+        planetCanvas.addPlanet(new Planet(0.2, Math.sqrt(270.0878/153824), 0, 0, 153824, 0.031)); // Pluto
     }
 
     public static void setupBinarySystem(PlanetCanvas canvas) {
